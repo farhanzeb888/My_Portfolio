@@ -1,0 +1,1108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GitHub Projects Portfolio</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary: #38bdf8;
+        --primary-dark: #0ea5e9;
+        --dark: #020617;
+        --bg: #0f172a;
+        --text: #e5e7eb;
+        --card-bg: rgba(2, 6, 23, 0.8);
+        --error: #ef4444;
+        --success: #10b981;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", "Poppins", system-ui, sans-serif;
+      }
+
+      body {
+        background: linear-gradient(135deg, #020617 0%, #0f172a 100%);
+        color: var(--text);
+        line-height: 1.6;
+        min-height: 100vh;
+        padding-top: 70px;
+      }
+
+      /* Header */
+      header {
+        background: rgba(2, 6, 23, 0.98);
+        padding: 1rem 5%;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(56, 189, 248, 0.1);
+      }
+
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .logo {
+        color: var(--primary);
+        font-size: 1.8rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .logo i {
+        font-size: 1.5rem;
+      }
+
+      nav ul {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+      }
+
+      nav a {
+        color: var(--text);
+        text-decoration: none;
+        transition: color 0.3s;
+        font-weight: 500;
+        font-size: 1rem;
+        position: relative;
+        padding: 0.5rem 0;
+      }
+
+      nav a:hover {
+        color: var(--primary);
+      }
+
+      nav a::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--primary);
+        transition: width 0.3s ease;
+      }
+
+      nav a:hover::after {
+        width: 100%;
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        color: var(--text);
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+
+      /* Projects Section */
+      #projects {
+        padding: 3rem 5%;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .section-header {
+        margin-bottom: 3rem;
+        text-align: center;
+      }
+
+      .section-header h2 {
+        font-size: 2.8rem;
+        margin-bottom: 1rem;
+        color: var(--primary);
+        position: relative;
+        display: inline-block;
+      }
+
+      .section-header h2::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: var(--primary);
+        border-radius: 2px;
+      }
+
+      .section-header p {
+        color: #94a3b8;
+        font-size: 1.1rem;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      /* Projects Container & Grid */
+      .projects-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 2rem;
+        margin-bottom: 3rem;
+      }
+
+      .project-card {
+        background: var(--card-bg);
+        border: 1px solid rgba(56, 189, 248, 0.1);
+        border-radius: 12px;
+        padding: 1.8rem;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      .project-card:hover {
+        transform: translateY(-8px);
+        border-color: var(--primary);
+        box-shadow: 0 15px 40px rgba(56, 189, 248, 0.2);
+      }
+
+      .project-header {
+        margin-bottom: 1.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+
+      .project-card h3 {
+        color: var(--primary);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        min-width: 0;
+        flex: 1;
+      }
+
+      .project-stats {
+        display: flex;
+        gap: 0.8rem;
+        flex-shrink: 0;
+      }
+
+      .stat {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        color: #94a3b8;
+        font-size: 0.9rem;
+        white-space: nowrap;
+      }
+
+      .project-description {
+        color: #cbd5e1;
+        margin-bottom: 1.5rem;
+        font-size: 1rem;
+        line-height: 1.6;
+        flex: 1;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+      }
+
+      .project-tech {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .tech-tag {
+        background: rgba(56, 189, 248, 0.1);
+        color: var(--primary);
+        padding: 0.4rem 0.9rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+
+      .project-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: auto;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(56, 189, 248, 0.1);
+      }
+
+      .project-date {
+        color: #94a3b8;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .project-links {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .project-btn {
+        padding: 0.6rem 1.2rem;
+        background: var(--primary);
+        color: var(--dark);
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        white-space: nowrap;
+      }
+
+      .project-btn:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(56, 189, 248, 0.3);
+      }
+
+      .btn-outline {
+        background: transparent;
+        border: 2px solid var(--primary);
+        color: var(--primary);
+      }
+
+      .btn-outline:hover {
+        background: var(--primary);
+        color: var(--dark);
+      }
+
+      /* Load More Button */
+      .load-more-container {
+        text-align: center;
+        margin-top: 2rem;
+        display: none;
+      }
+
+      .load-more-btn {
+        padding: 1rem 2.5rem;
+        background: var(--primary);
+        color: var(--dark);
+        border: none;
+        border-radius: 30px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.8rem;
+      }
+
+      .load-more-btn:hover {
+        background: var(--primary-dark);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(56, 189, 248, 0.3);
+      }
+
+      .load-more-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      /* Loader */
+      .loader {
+        text-align: center;
+        padding: 4rem 0;
+        grid-column: 1 / -1;
+      }
+
+      .spinner {
+        width: 60px;
+        height: 60px;
+        border: 5px solid rgba(56, 189, 248, 0.2);
+        border-top: 5px solid var(--primary);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 1.5rem;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Error Message */
+      .error-msg {
+        background: rgba(239, 68, 68, 0.1);
+        border: 1px solid var(--error);
+        border-radius: 12px;
+        padding: 2.5rem;
+        text-align: center;
+        grid-column: 1 / -1;
+      }
+
+      .error-msg i {
+        font-size: 3.5rem;
+        color: var(--error);
+        margin-bottom: 1.5rem;
+      }
+
+      .error-msg h3 {
+        color: var(--error);
+        margin-bottom: 1rem;
+        font-size: 1.8rem;
+      }
+
+      .error-details {
+        text-align: left;
+        background: rgba(0, 0, 0, 0.2);
+        padding: 1rem;
+        border-radius: 8px;
+        margin: 1.5rem auto;
+        max-width: 500px;
+        font-family: monospace;
+        font-size: 0.9rem;
+      }
+
+      /* Footer */
+      footer {
+        text-align: center;
+        padding: 2.5rem 5%;
+        background: rgba(2, 6, 23, 0.9);
+        margin-top: 4rem;
+        border-top: 1px solid rgba(56, 189, 248, 0.1);
+      }
+
+      .footer-content {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .github-stats {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin: 1.5rem 0;
+        flex-wrap: wrap;
+      }
+
+      .stat-box {
+        background: rgba(56, 189, 248, 0.05);
+        padding: 1rem 1.5rem;
+        border-radius: 10px;
+        border: 1px solid rgba(56, 189, 248, 0.1);
+      }
+
+      .copyright {
+        color: #94a3b8;
+        font-size: 0.95rem;
+        margin-top: 2rem;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 1200px) {
+        .projects-container {
+          grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        }
+      }
+
+      @media (max-width: 992px) {
+        .projects-container {
+          grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+          gap: 1.5rem;
+        }
+
+        .section-header h2 {
+          font-size: 2.4rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        body {
+          padding-top: 60px;
+        }
+
+        header {
+          padding: 0.8rem 5%;
+        }
+
+        .logo {
+          font-size: 1.5rem;
+        }
+
+        .mobile-menu-btn {
+          display: block;
+        }
+
+        nav ul {
+          position: fixed;
+          top: 60px;
+          left: 0;
+          width: 100%;
+          background: rgba(2, 6, 23, 0.98);
+          flex-direction: column;
+          padding: 1.5rem;
+          gap: 1.5rem;
+          transform: translateY(-100%);
+          opacity: 0;
+          visibility: hidden;
+          transition: all 0.3s ease;
+          border-bottom: 1px solid rgba(56, 189, 248, 0.1);
+          z-index: 999;
+        }
+
+        nav ul.active {
+          transform: translateY(0);
+          opacity: 1;
+          visibility: visible;
+        }
+
+        #projects {
+          padding: 2rem 5%;
+        }
+
+        .projects-container {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+        }
+
+        .project-card {
+          padding: 1.5rem;
+        }
+
+        .project-header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.8rem;
+        }
+
+        .project-stats {
+          width: 100%;
+          justify-content: flex-start;
+          flex-shrink: 0;
+        }
+
+        .project-footer {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 1rem;
+        }
+
+        .project-links {
+          width: 100%;
+          justify-content: flex-start;
+        }
+
+        .load-more-btn {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .section-header h2 {
+          font-size: 2rem;
+        }
+
+        .project-card h3 {
+          font-size: 1.3rem;
+        }
+
+        .project-btn {
+          padding: 0.5rem 1rem;
+          font-size: 0.9rem;
+        }
+
+        .github-stats {
+          flex-direction: column;
+          align-items: center;
+          gap: 1rem;
+        }
+      }
+
+      /* Animation for new projects */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .project-card.new {
+        animation: fadeInUp 0.5s ease forwards;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="logo">
+          <span>Farhan</span>
+        </div>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <i class="fas fa-bars"></i>
+        </button>
+        <ul id="navMenu">
+          <li>
+            <a href="#projects"
+              ><i class="fas fa-project-diagram"></i> Projects</a
+            >
+          </li>
+          <li>
+            <a href="https://github.com/farhanzeb888" target="_blank"
+              ><i class="fab fa-github"></i> GitHub</a
+            >
+          </li>
+          <li>
+            <a href="#" id="refreshBtn"
+              ><i class="fas fa-sync-alt"></i> Refresh</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section id="projects">
+        <div class="section-header">
+          <h2>My GitHub Projects</h2>
+          <p>
+            Here are my latest projects from GitHub. Click on any project to
+            view details.
+          </p>
+        </div>
+
+        <!-- Projects Container -->
+        <div class="projects-container" id="projectsContainer">
+          <div class="loader" id="loader">
+            <div class="spinner"></div>
+            <p>Loading projects from GitHub...</p>
+          </div>
+        </div>
+
+        <!-- Load More Button -->
+        <div class="load-more-container" id="loadMoreContainer">
+          <button class="load-more-btn" id="loadMoreBtn">
+            <i class="fas fa-plus"></i> Load More Projects
+          </button>
+        </div>
+
+        <!-- Error Message (hidden by default) -->
+        <div class="error-msg" id="errorMsg" style="display: none">
+          <i class="fas fa-exclamation-triangle"></i>
+          <h3>Unable to Load Projects</h3>
+          <p>There was an error loading projects from GitHub. Please check:</p>
+          <ul style="text-align: left; margin: 1.5rem auto; max-width: 500px">
+            <li>Your internet connection</li>
+            <li>GitHub API rate limit (max 60 requests/hour without token)</li>
+            <li>
+              Or visit my GitHub directly:
+              <a
+                href="https://github.com/farhanzeb888"
+                style="color: var(--primary); font-weight: 600"
+                >github.com/farhanzeb888</a
+              >
+            </li>
+          </ul>
+          <div class="error-details" id="errorDetails"></div>
+          <button
+            onclick="loadGitHubProjects(true)"
+            class="project-btn"
+            style="margin-top: 1.5rem"
+          >
+            <i class="fas fa-redo"></i> Try Again
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <div class="logo" style="justify-content: center; margin-bottom: 1rem">
+          <i class="fas fa-code"></i>
+          <span>GitHub Projects Portfolio</span>
+        </div>
+        <p>Live data fetched from GitHub API. Projects update automatically.</p>
+
+        <div class="github-stats" id="githubStats">
+          <!-- GitHub stats will be populated here -->
+        </div>
+
+        <p class="copyright">
+          &copy; <span id="currentYear"></span> All projects belong to their
+          respective owners. <br />Last updated: <span id="lastUpdated"></span>
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      // GitHub API Configuration
+      const GITHUB_USERNAME = "farhanzeb888";
+      const GITHUB_API_URL = `https://api.github.com/users/${GITHUB_USERNAME}/repos`;
+      const GITHUB_USER_URL = `https://api.github.com/users/${GITHUB_USERNAME}`;
+
+      // Pagination settings
+      const PROJECTS_PER_PAGE = 6;
+      let currentPage = 1;
+      let allProjects = [];
+      let displayedProjects = 0;
+
+      // Language colors for badges
+      const languageColors = {
+        JavaScript: "#f7df1e",
+        Python: "#3776ab",
+        HTML: "#e34c26",
+        CSS: "#563d7c",
+        Java: "#b07219",
+        PHP: "#4F5D95",
+        TypeScript: "#3178c6",
+        Vue: "#41b883",
+        React: "#61dafb",
+        "C++": "#00599c",
+        C: "#555555",
+        Ruby: "#701516",
+        Go: "#00ADD8",
+        Rust: "#dea584",
+        Kotlin: "#F18E33",
+        Swift: "#F05138",
+        Shell: "#89e051",
+        Dart: "#00B4AB",
+        Kotlin: "#F18E33",
+        Scala: "#c22d40",
+      };
+
+      // Cache for GitHub data
+      const githubCache = {
+        data: null,
+        timestamp: null,
+        userData: null,
+        userTimestamp: null,
+      };
+
+      // CORS Proxy (fallback if direct API fails)
+      const CORS_PROXY = "https://corsproxy.io/?";
+
+      // Initialize when DOM is loaded
+      document.addEventListener("DOMContentLoaded", function () {
+        // Set current year in footer
+        document.getElementById("currentYear").textContent =
+          new Date().getFullYear();
+
+        // Set last updated time
+        updateLastUpdated();
+
+        // Setup mobile menu
+        setupMobileMenu();
+
+        // Setup refresh button
+        document
+          .getElementById("refreshBtn")
+          .addEventListener("click", function (e) {
+            e.preventDefault();
+            loadGitHubProjects(true); // Force refresh
+          });
+
+        // Setup load more button
+        document
+          .getElementById("loadMoreBtn")
+          .addEventListener("click", loadMoreProjects);
+
+        // Load projects initially
+        loadGitHubProjects();
+
+        // Load GitHub user stats
+        loadGitHubStats();
+      });
+
+      // Setup mobile menu toggle
+      function setupMobileMenu() {
+        const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+        const navMenu = document.getElementById("navMenu");
+
+        mobileMenuBtn.addEventListener("click", function () {
+          navMenu.classList.toggle("active");
+          const icon = this.querySelector("i");
+          icon.classList.toggle("fa-bars");
+          icon.classList.toggle("fa-times");
+        });
+
+        // Close menu when clicking on a link
+        document.querySelectorAll("#navMenu a").forEach((link) => {
+          link.addEventListener("click", () => {
+            navMenu.classList.remove("active");
+            mobileMenuBtn
+              .querySelector("i")
+              .classList.replace("fa-times", "fa-bars");
+          });
+        });
+      }
+
+      // Update last updated timestamp
+      function updateLastUpdated() {
+        const now = new Date();
+        const options = {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        };
+        document.getElementById("lastUpdated").textContent =
+          now.toLocaleDateString("en-US", options);
+      }
+
+      // Fetch with proxy fallback
+      async function fetchWithProxy(url, forceRefresh = false) {
+        // Check cache first (5 minute cache)
+        const cacheKey = url.includes("/repos") ? "data" : "userData";
+        const cacheTimestamp = url.includes("/repos")
+          ? "timestamp"
+          : "userTimestamp";
+        const now = Date.now();
+
+        if (
+          !forceRefresh &&
+          githubCache[cacheKey] &&
+          githubCache[cacheTimestamp] &&
+          now - githubCache[cacheTimestamp] < 5 * 60 * 1000
+        ) {
+          console.log("Using cached GitHub data");
+          return githubCache[cacheKey];
+        }
+
+        try {
+          // Try direct fetch first
+          console.log("Fetching fresh data from GitHub API:", url);
+          const directResponse = await fetch(url);
+
+          if (directResponse.ok) {
+            const data = await directResponse.json();
+
+            // Update cache
+            githubCache[cacheKey] = data;
+            githubCache[cacheTimestamp] = now;
+
+            return data;
+          }
+
+          // If direct fetch fails, try with CORS proxy
+          console.log("Direct fetch failed, trying CORS proxy...");
+          const proxyUrl = CORS_PROXY + encodeURIComponent(url);
+          const proxyResponse = await fetch(proxyUrl);
+
+          if (!proxyResponse.ok) {
+            throw new Error(`HTTP error! Status: ${proxyResponse.status}`);
+          }
+
+          const data = await proxyResponse.json();
+
+          // Update cache
+          githubCache[cacheKey] = data;
+          githubCache[cacheTimestamp] = now;
+
+          return data;
+        } catch (error) {
+          console.error("Fetch error:", error);
+          throw error;
+        }
+      }
+
+      // Load GitHub projects
+      async function loadGitHubProjects(forceRefresh = false) {
+        const container = document.getElementById("projectsContainer");
+        const loader = document.getElementById("loader");
+        const errorMsg = document.getElementById("errorMsg");
+        const loadMoreContainer = document.getElementById("loadMoreContainer");
+
+        // Reset pagination
+        currentPage = 1;
+        displayedProjects = 0;
+
+        // Show loader, hide error and load more button
+        loader.style.display = "block";
+        errorMsg.style.display = "none";
+        loadMoreContainer.style.display = "none";
+        container.innerHTML = "";
+        container.appendChild(loader);
+
+        try {
+          // Fetch repositories
+          const repos = await fetchWithProxy(GITHUB_API_URL, forceRefresh);
+
+          if (!Array.isArray(repos)) {
+            throw new Error("Invalid response format from GitHub API");
+          }
+
+          // Filter out forks and sort by stars
+          const filteredRepos = repos
+            .filter((repo) => !repo.fork && !repo.archived)
+            .sort((a, b) => b.stargazers_count - a.stargazers_count);
+
+          allProjects = filteredRepos;
+
+          // Hide loader
+          loader.style.display = "none";
+
+          if (filteredRepos.length === 0) {
+            showNoProjectsMessage();
+            return;
+          }
+
+          // Display first page of projects
+          displayProjectsPage();
+
+          // Show load more button if there are more projects
+          if (allProjects.length > PROJECTS_PER_PAGE) {
+            loadMoreContainer.style.display = "block";
+          }
+
+          // Update last updated time
+          updateLastUpdated();
+        } catch (error) {
+          console.error("Error loading GitHub projects:", error);
+          showError(error);
+        }
+      }
+
+      // Display a page of projects
+      function displayProjectsPage() {
+        const container = document.getElementById("projectsContainer");
+        const startIndex = (currentPage - 1) * PROJECTS_PER_PAGE;
+        const endIndex = startIndex + PROJECTS_PER_PAGE;
+        const projectsToShow = allProjects.slice(startIndex, endIndex);
+
+        // Clear container if it's the first page
+        if (currentPage === 1) {
+          container.innerHTML = "";
+        }
+
+        // Add project cards
+        projectsToShow.forEach((repo, index) => {
+          const projectCard = createProjectCard(repo);
+          projectCard.style.animationDelay = `${index * 0.1}s`;
+          projectCard.classList.add("new");
+          container.appendChild(projectCard);
+        });
+
+        displayedProjects += projectsToShow.length;
+
+        // Update load more button text
+        updateLoadMoreButton();
+
+        // Remove new class after animation
+        setTimeout(() => {
+          document.querySelectorAll(".project-card.new").forEach((card) => {
+            card.classList.remove("new");
+          });
+        }, 600);
+      }
+
+      // Create a project card element
+      function createProjectCard(repo) {
+        const card = document.createElement("div");
+        card.className = "project-card";
+
+        // Format date
+        const updatedDate = new Date(repo.updated_at).toLocaleDateString(
+          "en-US",
+          {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+          },
+        );
+
+        // Get language
+        const language = repo.language || "Various";
+        const languageColor = languageColors[language] || "#38bdf8";
+
+        // Create tech tags from topics or language
+        const techStack =
+          repo.topics && repo.topics.length > 0
+            ? repo.topics.slice(0, 4)
+            : [language];
+
+        // Truncate description if too long
+        const maxDescriptionLength = 150;
+        let description = repo.description || "No description available.";
+        if (description.length > maxDescriptionLength) {
+          description = description.substring(0, maxDescriptionLength) + "...";
+        }
+
+        card.innerHTML = `
+                <div class="project-header">
+                    <h3 title="${repo.name}">${repo.name}</h3>
+                    <div class="project-stats">
+                        <span class="stat" title="Stars">
+                            <i class="fas fa-star"></i> ${repo.stargazers_count}
+                        </span>
+                        <span class="stat" title="Forks">
+                            <i class="fas fa-code-branch"></i> ${repo.forks_count}
+                        </span>
+                    </div>
+                </div>
+                
+                <p class="project-description" title="${repo.description || ""}">${description}</p>
+                
+                <div class="project-tech">
+                    ${techStack
+                      .map(
+                        (tech) => `
+                        <span class="tech-tag" style="background: ${languageColors[tech] ? `${languageColors[tech]}20` : "rgba(56, 189, 248, 0.1)"}; 
+                              color: ${languageColors[tech] || "#38bdf8"};">
+                            ${tech}
+                        </span>
+                    `,
+                      )
+                      .join("")}
+                </div>
+                
+                <div class="project-footer">
+                    <span class="project-date">
+                        <i class="fas fa-calendar-alt"></i> Updated ${updatedDate}
+                    </span>
+                    <div class="project-links">
+                        <a href="${repo.html_url}" target="_blank" class="project-btn" title="View on GitHub">
+                            <i class="fab fa-github"></i> Code
+                        </a>
+                        ${
+                          repo.homepage
+                            ? `
+                            <a href="${repo.homepage}" target="_blank" class="project-btn btn-outline" title="Live Demo">
+                                <i class="fas fa-external-link-alt"></i> Demo
+                            </a>
+                        `
+                            : ""
+                        }
+                    </div>
+                </div>
+            `;
+
+        return card;
+      }
+
+      // Load more projects
+      function loadMoreProjects() {
+        const loadMoreBtn = document.getElementById("loadMoreBtn");
+
+        // Disable button while loading
+        loadMoreBtn.disabled = true;
+        loadMoreBtn.innerHTML =
+          '<i class="fas fa-spinner fa-spin"></i> Loading...';
+
+        // Simulate loading delay for better UX
+        setTimeout(() => {
+          currentPage++;
+          displayProjectsPage();
+
+          // Re-enable button
+          loadMoreBtn.disabled = false;
+          loadMoreBtn.innerHTML =
+            '<i class="fas fa-plus"></i> Load More Projects';
+        }, 300);
+      }
+
+      // Update load more button text
+      function updateLoadMoreButton() {
+        const remainingProjects = allProjects.length - displayedProjects;
+        const loadMoreBtn = document.getElementById("loadMoreBtn");
+
+        if (remainingProjects <= 0) {
+          document.getElementById("loadMoreContainer").style.display = "none";
+        } else {
+          loadMoreBtn.innerHTML = `<i class="fas fa-plus"></i> Load More (${remainingProjects} remaining)`;
+        }
+      }
+
+      // Show error message
+      function showError(error) {
+        const container = document.getElementById("projectsContainer");
+        const errorMsg = document.getElementById("errorMsg");
+        const errorDetails = document.getElementById("errorDetails");
+
+        container.innerHTML = "";
+        errorDetails.innerHTML = `
+                <strong>Error Details:</strong> ${error.message || "Unknown error"}<br>
+                <small>API URL: ${GITHUB_API_URL}</small>
+            `;
+
+        errorMsg.style.display = "block";
+      }
+
+      // Show no projects message
+      function showNoProjectsMessage() {
+        const container = document.getElementById("projectsContainer");
+
+        container.innerHTML = `
+                <div class="error-msg">
+                    <i class="fas fa-folder-open"></i>
+                    <h3>No Projects Found</h3>
+                    <p>No public repositories found on GitHub for user "${GITHUB_USERNAME}".</p>
+                    <a href="https://github.com/farhanzeb888" target="_blank" class="project-btn" style="margin-top: 1.5rem;">
+                        <i class="fab fa-github"></i> Visit My GitHub Profile
+                    </a>
+                </div>
+            `;
+      }
+
+      // Load GitHub user stats
+      async function loadGitHubStats() {
+        try {
+          const userData = await fetchWithProxy(GITHUB_USER_URL);
+          const statsContainer = document.getElementById("githubStats");
+
+          if (userData && !userData.message) {
+            // Check if not an error
+            statsContainer.innerHTML = `
+                        <div class="stat-box">
+                            <i class="fas fa-users"></i> Followers: ${userData.followers}
+                        </div>
+                        <div class="stat-box">
+                            <i class="fas fa-user-plus"></i> Following: ${userData.following}
+                        </div>
+                        <div class="stat-box">
+                            <i class="fas fa-book"></i> Public Repos: ${userData.public_repos}
+                        </div>
+                    `;
+          }
+        } catch (error) {
+          console.error("Error loading GitHub stats:", error);
+          // Don't show error for stats, just leave empty
+        }
+      }
+
+      // Auto-refresh every 5 minutes
+      setInterval(
+        () => {
+          console.log("Auto-refreshing GitHub projects...");
+          loadGitHubProjects(true);
+        },
+        5 * 60 * 1000,
+      );
+    </script>
+  </body>
+</html>
