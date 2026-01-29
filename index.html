@@ -399,10 +399,16 @@
       }
       
       nav a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: #0ea5e9;
         margin: 15px 0;
         font-size: 1.1rem;
       }
-      
+      nav a:hover{
+        color: var(--primary);
+      }
       .menu-toggle {
         display: block;
       }
@@ -552,14 +558,9 @@
     <h3 style="margin-top:40px;">Highlighted Projects</h3>
     <div class="grid">
       <div class="card">
-        <h3><i class="fas fa-car-crash" style="color: var(--primary); margin-right: 10px;"></i> Accident Detection System</h3>
-        <p style="margin-top: 10px;">AI-based system for detecting road accidents using video analysis, backend processing, and real-time monitoring.</p>
+        <h3><i class="fas fa-car-crash" style="color: var(--primary); margin-right: 10px;"></i> Smart Video Surveillance System</h3>
+        <p style="margin-top: 10px;">AI-based system for detecting road accidents using image analysis, backend processing, and real-time monitoring.</p>
         <p style="margin-top: 10px;"><strong>Technologies:</strong> Python, OpenCV, FastAPI, Computer Vision</p>
-      </div>
-      <div class="card">
-        <h3><i class="fas fa-plane" style="color: var(--primary); margin-right: 10px;"></i> Tour & Travel Website</h3>
-        <p style="margin-top: 10px;">Responsive travel website developed using HTML, CSS, JavaScript, PHP, and MySQL with booking functionality.</p>
-        <p style="margin-top: 10px;"><strong>Technologies:</strong> HTML5, CSS3, JavaScript, PHP, MySQL</p>
       </div>
       <div class="card">
         <h3><i class="fas fa-shopping-cart" style="color: var(--primary); margin-right: 10px;"></i> E-Commerce Dashboard</h3>
@@ -782,7 +783,7 @@
         
         PROJECTS
         --------
-        1. Accident Detection System
+        1. Smart Video Surveillance System
            - AI-based system for detecting road accidents
            - Technologies: Python, OpenCV, FastAPI, Computer Vision
         
